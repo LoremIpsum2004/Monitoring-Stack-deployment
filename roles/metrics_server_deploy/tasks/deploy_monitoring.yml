@@ -1,0 +1,24 @@
+---
+- name: Deploy Prometheus on monitoring_server
+  community.docker.docker_container:
+    name: prometheus
+    image: prom/prometheus
+    state: started
+    restart: yes
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./roles/metrics_server_deploy/files/prometheus.yml:/etc/prometheus/prometheus.yml"
+
+- name: Deploy Grafana on monitoring_server
+  community.docker.docker_container:
+    name: grafana
+    image: grafana/grafana
+    state: started
+    restart: yes
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./roles/metrics_server_deploy/files/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml"
+      - "./roles/metrics_server_deploy/files/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml"
+      - "./roles/metrics_server_deploy/files/1860_rev45.json:/etc/grafana/dashboards/1860_rev45.json"

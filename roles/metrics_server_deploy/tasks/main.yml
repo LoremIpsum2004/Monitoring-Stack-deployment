@@ -1,0 +1,8 @@
+---
+- name: Include tasks for Node Exporter
+  ansible.builtin.include_tasks: deploy_node_exporter.yml
+  when: "'node_exporter_servers' in group_names"
+
+- name: Include tasks for Prometheus and Grafana
+  ansible.builtin.include_tasks: deploy_monitoring.yml
+  when: "'monitoring_servers' in group_names"

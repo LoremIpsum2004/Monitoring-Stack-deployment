@@ -1,0 +1,5 @@
+---
+- name: Deploy Monitoring Stack
+  hosts: [node_exporter_servers, monitoring_servers]
+  roles:
+    - metrics_server_deploy

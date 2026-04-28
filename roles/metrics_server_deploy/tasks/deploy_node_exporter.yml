@@ -1,0 +1,12 @@
+---
+- name: Deploy Node Exporter on node_exporter_server
+  community.docker.docker_container:
+    name: node_exporter
+    image: prom/node-exporter:master-distroless
+    state: started
+    restart: yes
+    network_mode: host
+    pid_mode: host
+    volumes:
+      - "/:/host:ro,rslave"
+    command: "--path.rootfs=/host"
